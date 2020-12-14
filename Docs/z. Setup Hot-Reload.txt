@@ -1,0 +1,22 @@
+﻿npm install reload
+
+#### PACKAGE.JSON ####
+"scripts": {
+	"start": "nodemon ./app.js -e hbs,js,css,html"
+}
+
+#### APP.JS ####
+const reload = require("reload");
+const app = express();
+...
+reload(app);
+
+
+
+
+#### INDEX.html ####
+<html>
+<body>
+    <script src="/reload/reload.js"></script>
+</body>
+</html>

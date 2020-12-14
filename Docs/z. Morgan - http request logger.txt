@@ -1,0 +1,4 @@
+﻿dùng để log ~ request của http ra
+
+const  morgan = require('morgan')
+app.use(morgan('combined'))

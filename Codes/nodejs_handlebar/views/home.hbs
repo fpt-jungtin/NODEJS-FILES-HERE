@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 mx-auto mt-3">
+            <h1>Chào tất cả đến với JUNGTIN</h1>
+            {{>student-list students=students}}
+        </div>
+        <hr>
+        <h2>Dưới đây là Block Helper</h2>
+        {{#studentTable students class="table table-hover"}}
+        <button class="btn btn-danger"
+                id="{{this.id}}">Delete</button>
+        {{/studentTable}}
+    </div>
+</div>

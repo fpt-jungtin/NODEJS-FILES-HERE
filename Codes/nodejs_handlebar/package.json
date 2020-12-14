@@ -1,0 +1,16 @@
+{
+	"name": "nodejs_handlebar",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"start": "nodemon ./app.js -e hbs,js,css,html"
+	},
+	"author": "jungtin",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1",
+		"express-handlebars": "^5.2.0",
+		"reload": "^3.1.1"
+	}
+}

@@ -1,0 +1,18 @@
+<table class="table hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each students}}
+        <tr>
+            <th scope="row">{{id}}</th>
+            <td>{{renderName name}}</td>
+            <td>{{age}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
