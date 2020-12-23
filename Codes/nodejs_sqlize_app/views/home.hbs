@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 mx-auto mt-3">
+            <h4>Welcome to JUNGTIN Online Courses</h4>
+            <p class="text-muted lead">This is where you can learn everything for software engineering for FREE</p>
+        </div>
+        {{!-- Courses --}}
+        <div class="course__container">
+            {{#each courses as |course|}}
+            <div class="card course__item"
+                 style="width: 18rem;">
+                <div class="card-body">
+                    <img src="{{course.imageUrl}}"
+                         class="card-img-top course__image">
+                    <h6 class="card-title course__title">
+                        <a href="#">{{course.title}}</a>
+                    </h6>
+                    <p class="card-text course__author text-muted">{{course.author}}</p>
+                    <div class="course__rating-container mt-1">
+                        <span class="course__rating-number">4.6</span>
+                        <span class="fa fa-star course__rating-checked"></span>
+                        <span class="fa fa-star course__rating-checked"></span>
+                        <span class="fa fa-star course__rating-checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="course__rating-student-count text-muted">({{course.studentCount}})</span>
+                    </div>
+                    <span class="course__price">${{course.price}}</span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <hr>
+    </div>
+</div>

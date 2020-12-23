@@ -1,0 +1,40 @@
+﻿$ npm install --save omit-empty
+
+
+const omitEmpty = require('omit-empty')
+
+const removeEmptyProperties = () => {
+  return function (req, res, next) {
+    req.body = omitEmpty(req.body)
+    req.params = omitEmpty(req.params)
+    req.query = omitEmpty(req.query)
+    next()
+  }
+}
+app.use(removeEmptyProperties())
+
+============ LÝ DO SỬ DỤNG =============
+- Thường ta hay bị "Cannot read property 'length' of undefined" vì check if(skills.length)
+=> Chính vì thế loại bỏ những trường hợp đó thì vô cùng là hợp lý rồi !
+
+
+const object = {
+  null: null, 
+  undefined: undefined,
+  emptyString: '',
+  emptyArray: [],
+  emptyObject: {},
+  filled: 'yay'
+}
+
+console.log(omitEmpty(object))
+// {
+//   filled: 'yay' // nó chỉ lấy thằng này thôi
+// }
+
+
+// set omitZero to true, to evaluate "0" as falsey
+console.log(omitEmpty({ a: 0, b: 1 }, { omitZero: true }));
+//=> { b: 1 }
+
+

@@ -1,0 +1,22 @@
+{
+	"name": "nodejs_sqlize_app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"dependencies": {
+		"connect-flash": "^0.1.1",
+		"express": "^4.17.1",
+		"express-handlebars": "^5.2.0",
+		"express-session": "^1.17.1",
+		"express-validator": "^6.8.0",
+		"mysql2": "^2.2.5",
+		"reload": "^3.1.1",
+		"sequelize": "^6.3.5"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"start": "nodemon ./app.js -e hbs,js,css,html"
+	},
+	"author": "jungtin",
+	"license": "ISC"
+}

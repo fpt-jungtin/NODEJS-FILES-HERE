@@ -1,0 +1,30 @@
+﻿tạo urls.js
+
+const HOME = "/";
+
+module.exports = {
+	HOME,
+};
+
+===========
+ở app.js
+
+const URL = require("./helpers/urls");
+const app = express();
+app.locals.URL = URL;
+
+
+===========
+<a href="{{URL.COURSE_CREATE_FORM}}"
+   class="btn btn-success">Create new course</a>
+   
+   
+===========
+nếu để ở trong #each hay gì đó ==> Sử dụng @root
+
+{{#each courses as |course|}}
+<tr>
+	<td><a href="{{@root.URL.COURSE_EDIT_FORM}}/{{course.id}}"
+		   class="btn btn-warning">Update</a></td>
+</tr>
+{{/each}}

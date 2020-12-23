@@ -1,0 +1,46 @@
+===================== config/database.js =====================
+const Sequelize = require("sequelize");
+
+const db = new Sequelize("learn_sqlize", "hbstudent", "hbstudent", {
+    dialect: "mysql",
+    host: "localhost",
+});
+
+module.exports = db;
+
+===================== models/Course.js =====================
+
+const { DataTypes, Model } = require("sequelize");
+const db = global.import("./config/database");
+
+const Course = db.define("course", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+});
+
+module.exports = Course;
+
+===================== app.js =====================
+const db = require("./config/database");
+db.sync({
+    // force: true,
+})
+    .then((rs) => {
+        console.log("Đã kết nối thành công với DB");
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on PORT: ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error(err);
+    });

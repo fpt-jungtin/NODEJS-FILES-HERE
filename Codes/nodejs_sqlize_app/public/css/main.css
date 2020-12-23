@@ -1,0 +1,48 @@
+#main-container {
+	max-width: 768px;
+	border: 1px solid black;
+	border-top: none;
+	border-bottom: none;
+	margin: auto;
+}
+.course__container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.course__item {
+	margin: 10px 10px 0 0;
+}
+
+.course__title {
+	margin-bottom: 0.25rem;
+}
+
+.course__title a {
+	color: black !important;
+}
+
+.course__author {
+	font-size: 0.8rem;
+	margin-bottom: 0.2rem;
+}
+
+.course__rating-container {
+	font-size: 0.8rem;
+}
+
+.course__rating-checked {
+	color: orange;
+}
+
+.course__rating-number,
+.course__rating-student-count {
+	font-size: 0.9rem;
+}
+
+.course__price {
+	font-size: 1rem;
+	color: black;
+	font-weight: bold;
+}

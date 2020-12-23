@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mx-auto mt-3">
+            <h4>Course Form</h4>
+            <form action="{{URL.COURSE_PROCESS_FORM}}"
+                  method="POST">
+                <input type="hidden"
+                       name="id"
+                       value="{{id}}">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text"
+                           name="title"
+                           value="{{title}}"
+                           class="form-control {{#if errors.title}}is-invalid{{/if}}">
+                    {{#if errors.title}}
+                    <div class="invalid-feedback">
+                        {{errors.title}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text"
+                           name="author"
+                           value="{{author}}"
+                           class="form-control {{#if errors.author}}is-invalid{{/if}}">
+                    {{#if errors.author}}
+                    <div class="invalid-feedback">
+                        {{errors.author}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text"
+                           name="image_url"
+                           value="{{imageUrl}}"
+                           class="form-control {{#if errors.image_url}}is-invalid{{/if}}">
+                    {{#if errors.image_url}}
+                    <div class="invalid-feedback">
+                        {{errors.image_url}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text"
+                           name="price"
+                           value="{{price}}"
+                           class="form-control {{#if errors.price}}is-invalid{{/if}}">
+                    {{#if errors.price}}
+                    <div class="invalid-feedback">
+                        {{errors.price}}
+                    </div>
+                    {{/if}}
+                </div>
+                <button type="submit"
+                        class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

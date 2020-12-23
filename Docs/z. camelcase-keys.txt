@@ -1,0 +1,60 @@
+﻿$ npm install camelcase-keys
+
+const camelcaseKeys = require('camelcase-keys');
+ 
+camelcaseKeys({
+    a_b: 1,
+    a_c: {
+        c_d: 1,
+        c_e: {
+            e_f: 1
+        }
+    }
+}, {
+    deep: true, // camelcase nested
+	pascalCase: false,
+    stopPaths: [
+        'a_c.c_e'
+    ]
+}),
+
+
+/* KẾT QUẢ
+{
+    aB: 1,
+    aC: {
+        cD: 1,
+        cE: {
+            e_f: 1
+        }
+    }
+}
+*/
+
+======================
+const camelcaseKeys = require('camelcase-keys')
+
+const camelcase = () => {
+  return function (req, res, next) {
+    req.body = camelcaseKeys(req.body, { deep: true })
+    req.params = camelcaseKeys(req.params)
+    req.query = camelcaseKeys(req.query)
+    next()
+  }
+}
+app.use(camelcase())
+
+======================
+dùng để convert tất cả thuộc tính từ form, body, params, query từ 
+"First-Name"
+"first_name"
+"first-name"
+"FirstName"
+
+về camelcase : firstName
+
+
+======================
+Ngoài ra còn : 
+- snakecase-keys
+- kebabcase-keys

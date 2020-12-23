@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 mx-auto mt-3">
+            <h1>Xin chào</h1>
+            <form action="/validation"
+                  method="post">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text"
+                           name="email"
+                           class="form-control {{#if errors.email}}is-invalid{{/if}}">
+                    {{#if errors.email}}
+                    <div class="invalid-feedback">
+                        {{errors.email}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text"
+                           name="username"
+                           class="form-control {{#if errors.username}}is-invalid{{/if}}">
+                    {{#if errors.username}}
+                    <div class="invalid-feedback">
+                        {{errors.username}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password"
+                           name="password"
+                           class="form-control {{#if errors.password}}is-invalid{{/if}}">
+                    {{#if errors.password}}
+                    <div class="invalid-feedback">
+                        {{errors.password}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <div class="form-group">
+                    <label>Re-password</label>
+                    <input type="password"
+                           name="re-password"
+                           class="form-control {{#if errors.re-password}}is-invalid{{/if}}">
+                    {{#if errors.re-password}}
+                    <div class="invalid-feedback">
+                        {{errors.re-password}} {{!-- chỗ này hyphen vì lấy từ input name="" --}}
+                    </div>
+                    {{/if}}
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
