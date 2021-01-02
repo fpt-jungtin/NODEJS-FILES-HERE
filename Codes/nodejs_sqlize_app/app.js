@@ -38,42 +38,133 @@ app.engine(
 app.set("view engine", "hbs");
 
 /* Middleware */
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(
 	session({
 		secret: "xHjnM5sTJungtin",
 		resave: true,
 		saveUninitialized: false,
-		cookie: {
-			path: "/", // Set-Cookie Path : root path of domain
-			httpOnly: true, // Chỉ chấp nhập http -> document.cookie => '' ở client(tránh xss)
-			secure: false, // chỉ chấp nhận ssl
-			maxAge: null, // Set-Cookie: Expires
-			domain: "www.jungtin.me", // default = null, vì cookie sẽ applied lên domain hiện tại
-			expires: new Date(Date.now() + 3600), // 3600s
-			/* 
-			Nếu cả 2 expires & maxAge đều set -> last one defined sẽ được sdung
-			*expires không nên set trực tiếp, luôn sử dụng maxAge
-			expires dùng như này : 
-				req.session.cookie.expires = new Date(Date.now() + 3600)
-		*/
-			sameSite: true,
-			/* VALUES : 
-			true : Strict for strict same site enforcement.
-			false
-			'lax' : Lax for lax same site enforcement.
-			'none' : None for an explicit cross-site cookie.
-			'strict' : Strict for strict same site enforcement.
-		*/
-		},
 	})
 );
-app.use(flash());
+const csrf = require("csurf");
+const csrfProtection = csrf();
+// const cookieParser = require("cookie-parser");
+// app.use(cookieParser());
+app.use(csrfProtection); // phải đặt sau cookie-parser
+app.use(flash()); // phải đặt sau session
+app.use((req, res, next) => {
+	res.locals.URL = URL;
+	res.locals.csrfToken = req.csrfToken();
+	next();
+}); // middleware của csrfToken phải đặt trước tất cả routes
 
 /* Route */
-app.locals.URL = URL;
 app.use(homeRoute);
 app.use("/dashboard/courses", courseRoute);
+
+app.get("/upload", (req, res) => {
+	res.render("upload-form", { layout: false });
+});
+const multer = require("multer");
+// const upload = multer({
+// 	dest: "folder_name",
+// 	fileFilter: (req, res, cb) => {
+// 		// To reject this file pass `false`, like so:
+// 		cb(null, false);
+
+// 		// To accept the file pass `true`, like so:
+// 		cb(null, true);
+
+// 		// You can always pass an error if something goes wrong:
+// 		cb(new Error("I don't have a clue!"));
+// 	},
+// 	limits: {
+// 		fieldNameSize: 100, // field's Name size (100 bytes)
+// 		fieldSize: 1024, // field value size (1024 bytes)
+// 		fields: Number.POSITIVE_INFINITY, // max num of non-file fields
+// 		fileSize: Number.POSITIVE_INFINITY, // max file size in total
+// 		files: Number.POSITIVE_INFINITY, // max num of file fields
+// 		parts: Number.POSITIVE_INFINITY, // num of fields + files
+// 		headerPairs: 2000, // max num of header key:value to parse
+// 	},
+// 	storage: multer.diskStorage({
+// 		destination: function (req, file, cb) {
+// 			cb(null, "/tmp/my-uploads");
+// 		},
+// 		filename: function (req, file, cb) {
+// 			cb(null, file.fieldname + "-" + Date.now());
+// 		},
+// 	}),
+// });
+
+var fileStorage = multer.diskStorage({
+	destination: async (req, file, cb) => {
+		const fs = require("fs");
+		try {
+			if (!fs.existsSync("./images")) {
+				fs.mkdirSync("./images");
+			}
+			cb(null, "./images");
+		} catch (err) {
+			console.error(err);
+		}
+	},
+	filename: function (req, file, cb) {
+		cb(null, `custom-${file.originalname}`);
+		// không sử dụng Date được vì tên của nó có space => sai
+	},
+});
+
+const fileFilter = (req, file, cb) => {
+	if (
+		file.mimetype === "image/png" ||
+		file.mimetype === "image/jpg" ||
+		file.mimetype === "image/jpeg"
+	) {
+		cb(null, true); // save file
+	} else {
+		/* 
+			Lưu ý : ở đây chỉ duyệt để không lưu thôi 
+			chứ không trả lại thông báo ở response 
+		*/
+		console.log("THÔNG BÁO : KHÔNG SAVE");
+		cb(null, false); // không save file
+	}
+};
+
+const upload = multer({
+	storage: fileStorage,
+	fileFilter: fileFilter,
+});
+
+app.post("/upload", upload.single("image"), (req, res) => {
+	if (!req.file) {
+		const error = new Error("Please upload a file");
+		error.httpStatusCode = 400;
+		return next(error);
+	}
+	res.end();
+});
+
+app.post("/upload-multi", upload.array("image", 10), (req, res) => {
+	if (!req.files) {
+		const error = new Error("Please choose files");
+		error.httpStatusCode = 400;
+		return next(error);
+	}
+	console.log(req.files);
+	res.end();
+});
+
+app.get("/download", (req, res) => {
+	const fs = require("fs");
+	const filePath = "./images/girl.jpg";
+
+	const stream = fs.createReadStream(filePath);
+	res.setHeader("Content-Type", "image/jpeg");
+	res.setHeader("Content-Disposition", `attachment; filename="girl.jpg"`);
+	stream.pipe(res);
+});
 
 /* 
 	Error Handling

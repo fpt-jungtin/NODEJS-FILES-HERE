@@ -1,0 +1,21 @@
+{
+	"name": "nodejs_sqlize_cli",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"start": "nodemon ./app.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1",
+		"express-handlebars": "^5.2.0",
+		"mysql2": "^2.2.5",
+		"omit-empty": "^1.0.0",
+		"sequelize": "^6.3.5"
+	},
+	"devDependencies": {
+		"sequelize-cli": "^6.2.0"
+	}
+}

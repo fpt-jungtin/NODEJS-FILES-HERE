@@ -1,0 +1,25 @@
+<a href="{{URL.POST_CREATE}}">Create</a>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Title</td>
+        <td>Content</td>
+        <td></td>
+        <td></td>
+    </tr>
+    {{#each posts as |post|}}
+    <tr>
+        <td>{{post.id}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.content}}</td>
+        <td><a href="{{@root.URL.POST_UPDATE}}/{{post.id}}">UPDATE</a></td>
+        <td>
+            <form action="{{@root.URL.POST_DELETE}}/{{post.id}}"
+                  method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+
+</table>

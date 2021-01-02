@@ -1,0 +1,17 @@
+<form action="{{ URL.USER_PROCESS }}"
+      method="POST">
+       <label>Email</label>
+       <input type="hidden"
+              name="id"
+              value="{{user.id}}">
+       <input type="text"
+              name="email"
+              value="{{user.email}}">
+
+       <label>Password</label>
+       <input type="password"
+              name="password"
+              value="{{user.password}}">
+
+       <button type="submit">Submit</button>
+</form>

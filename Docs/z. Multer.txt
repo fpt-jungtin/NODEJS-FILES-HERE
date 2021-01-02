@@ -1,0 +1,7 @@
+﻿Là middleware chỉ dành cho multipart/form-data dùng cho upload file
+
+$ npm install --save multer
+
+<form action="/profile" method="post" enctype="multipart/form-data">
+  <input type="file" name="avatar" />
+</form>

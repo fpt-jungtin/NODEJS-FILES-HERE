@@ -1,0 +1,25 @@
+﻿Là middleware dùng zlib để nén css, js (no image) khi đi qua middleware này
+
+===================
+var compression = require('compression')
+var express = require('express')
+
+var app = express()
+app.use(compression())
+
+
+======= Customzize ========
+app.use(compression({
+	filter: (req, res) => {
+		// dùng để filter trường hợp nào cần compress & nào không cần
+		// return true để compress & return false để hủy
+		return true;
+	},
+	level: 
+	/* level từ -1 => 9 (-1 là default, 
+		0 là no compress, 
+		1 là fastest compress, 
+		6 là balance, 
+		9 là best) 
+	*/
+}))

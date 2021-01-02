@@ -1,0 +1,17 @@
+<form action="{{ URL.POST_PROCESS }}"
+      method="POST">
+       <input type="hidden"
+              name="id"
+              value="{{post.id}}">
+
+       <label>Title</label>
+       <input type="text"
+              name="title"
+              value="{{post.title}}">
+
+       <label>Content</label>
+       <textarea name="content"
+                 cols="30"
+                 rows="10">{{post.content}}</textarea>
+       <button type="submit">Submit</button>
+</form>

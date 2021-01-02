@@ -1,0 +1,12 @@
+﻿npm install bcryptjs
+
+===== AUTO generate Salt & Hash =====
+var hash = bcrypt.hashSync('bacon', 8);
+
+===== MANUALLY generate Salt & Hash =====
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
+var hash = bcrypt.hashSync("password", salt);
+
+===== CHECK PWD w HASHED PWD =====
+bcrypt.compareSync("password", hash); // true

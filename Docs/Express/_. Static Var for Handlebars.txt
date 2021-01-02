@@ -13,6 +13,13 @@ const URL = require("./helpers/urls");
 const app = express();
 app.locals.URL = URL;
 
+HOẶC SỬ DỤNG MIDDLEWARE
+
+app.use((req, res, next) => {
+	res.locals.URL = URL;
+	next();
+}); // middleware phải đặt trước tất cả routes
+
 
 ===========
 <a href="{{URL.COURSE_CREATE_FORM}}"
